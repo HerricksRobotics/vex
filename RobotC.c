@@ -144,6 +144,13 @@ void closeStarGrabber()
 }
 
 //-----------------------------------		Sensors			-------------------------------
+
+
+//*******************************************************************************************************
+//		WE MAY NOT NEED THIS. IF WE HAVE TIME, WE COULD HARD-CODE THE NUMBERS FOR PRECISE MEASUREMENTS!
+//*******************************************************************************************************
+
+
 //to detect an object near them
 //ASK WHERE AND HOW THE SONIC-SENSOR IS PLACES
 int toSee()					//0 to 255 in cm
@@ -171,7 +178,7 @@ task autonomous()
   //when star is in the grabber
 	goForward();
 	// waitUntil doesn't work even though it should: http://help.robotc.net/WebHelpVEX/Content/Resources/topics/VEX_IQ/Graphical/Program_Flow/waitUntil.htm
-	// waitUntil(SensorValue(sight) <= 5);				//change the value for the sights to stop the robot to shoot over the fence
+	// waitUntil(SensorValue(sight) > 6);				//change the value for the sights to stop the robot to shoot over the fence
 	putUpLift();
 	wait1Msec(4000);
 
@@ -182,7 +189,7 @@ task autonomous()
 	//goRight();          //find the exact time required to rotate the robot
 	//also, the turn might vary on the starting position of the robot
 
-	//goForward();
+	goForward();
 
 	for(int i=0; i < 10; i++)
 	{
@@ -201,8 +208,6 @@ task autonomous()
 
 task usercontrol()
 {
-  // User control code here, inside the loop
-
   while (true)
   {
     	//To control the left side using channel 3
