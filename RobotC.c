@@ -44,6 +44,7 @@ void pre_auton()
 
 
 
+  //I may have to do something about this preset...
 	motor[starGrabber] = -50;
 
 
