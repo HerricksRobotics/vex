@@ -1,3 +1,5 @@
+//Caitlin wrote 99% of this class. Rich only made 1% of changes to this class.
+
 #pragma config(Sensor, dgtl1,  grabberTouch,   sensorTouch)
 #pragma config(Sensor, dgtl2,  sight,          sensorSONAR_cm)
 #pragma config(Motor,  port1,           leftMotor,     tmotorVex393_HBridge, openLoop, driveLeft)
