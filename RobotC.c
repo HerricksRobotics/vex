@@ -196,7 +196,7 @@ task autonomous()
 
 	//when star is in the grabber (preload)
 	putUpLift();
-  	closeStarGrabber();
+  closeStarGrabber();
 	move('F', 2);
 	openStarGrabber();
 
@@ -209,18 +209,19 @@ task autonomous()
 	for(int i=0; i < 5; i++) // knocks some stars off the fence
 	{
     		move('B', .5); // approximations
-    		move('R', .3);
+    		turn('R', 45);
     		move('F', 1);
+    		turn('L', 45);
 	}
 
 	// pick up cube
 	move('B', .5);
 	openStarGrabber();
-	move('L', 3); // turn around to face cube
+	turn('L', 180); // turn around to face cube
 	move('F', .5);
 	closeStarGrabber();
 	putUpLift();
-	move('L', 3); // turn around to face fence
+	turn('L', 180); // turn around to face fence
 	move('F', 2);
 	openStarGrabber();
 }
