@@ -54,6 +54,41 @@ void pre_auton()
 
 //                                   *********** ACTIONS METHODS *************
 //----------------------------------        Movement of the Robot           ----------------------------------------------
+
+void move(char direction, float time) // ik it is redundant (it could be useful?)
+{
+	switch (direction)
+	{
+	case 'F':
+	  motor[leftMotor] = 127;
+	  motor[rightMotor] = -127;
+	  break;
+	case 'B':
+	  motor[leftMotor] = -127;
+	  motor[RightMotor] = 127;
+	  break;
+	case 'R':
+	  motor[leftMotor] = -127;
+	  motor[rightMotor] = -127;
+	  break;
+	case 'L':
+	  motor[leftMotor] = 127;
+	  motor[rightMotor] = -127;
+	  break;
+	default:
+	  return;
+	}
+
+	wait1Msec(time * 1000);
+
+	// time parameter finished so stop
+	motor[leftMotor] = 0;
+	motor[rightMotor] = 0;
+
+	// and now wait a second before next function
+	wait1Msec(1000);
+}
+
 void goBackward()
 {
 	motor[leftMotor] = 127;
@@ -77,18 +112,13 @@ void goLeft(float time)
 }
 
 
-void goRight(float time)
+void goRight(float time) // why is this method different?
 {
-	if (time <= 0) {
-	}
-	else
-	{
-		motor[leftMotor] = 127;
-		motor[rightMotor] = 127;
-		wait1Msec(time * 1000);
-		motor[leftMotor] = 0;
-		motor[rightMotor] = 0;
-	}
+  motor[leftMotor] = 127;
+  motor[rightMotor] = 127;
+  wait1Msec(time * 1000);
+  motor[leftMotor] = 0;
+  motor[rightMotor] = 0;
 }
 
 void stopMotors()
@@ -174,8 +204,6 @@ task autonomous()
 	float time = 2.8;													//change time to turn 90 degrees to match the robot's speed and weight
 
 
-	//when star is in the grabber
-	goForward();
 	// waitUntil doesn't work even though it should: http://help.robotc.net/WebHelpVEX/Content/Resources/topics/VEX_IQ/Graphical/Program_Flow/waitUntil.htm
 	// waitUntil(SensorValue(sight) < 6);				//change the value for the sights to stop the robot to shoot over the fence
 
@@ -184,28 +212,35 @@ task autonomous()
 	//		WE MAY NOT NEED THIS. IF WE HAVE TIME, WE COULD HARD-CODE THE NUMBERS FOR PRECISE MEASUREMENTS!
 	//*******************************************************************************************************
 
-
+	//when star is in the grabber (preload)
 	putUpLift();
-	wait1Msec(4000);
-
-	putDownLift();
-
+  	closeStarGrabber();
+	move('F', 2);
+	openStarGrabber();
 
 	//to knock off the stars off the fence             NEEDS TO BE CALCULATED TO PRECISE ANGLES
 	//goRight();          //find the exact time required to rotate the robot
 	//also, the turn might vary on the starting position of the robot
 
-	goForward();
+	move('F', 1);
 
-	for(int i=0; i < 10; i++)
+	for(int i=0; i < 5; i++) // knocks some stars off the fence
 	{
-		putUpLift();
-		putDownLift();
+    		move('B', .5); // approximations
+    		move('R', .3);
+    		move('F', 1);
 	}
-	stopMotors();
 
-	// Remove this function call once you have "real" code.
-	AutonomousCodePlaceholderForTesting();
+	// pick up cube
+	move('B', .5);
+	openStarGrabber();
+	move('L', 3); // turn around to face cube
+	move('F', .5);
+	closeStarGrabber();
+	putUpLift();
+	move('L', 3); // turn around to face fence
+	move('F', 2);
+	openStarGrabber();
 }
 
 
@@ -270,6 +305,5 @@ task usercontrol()
 		wait1Msec(30);
 		motor[liftLeft] = 0;
 		motor[liftRight] = 0;
-		UserControlCodePlaceholderForTesting();
 	}
 }
