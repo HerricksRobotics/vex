@@ -55,7 +55,7 @@ void pre_auton()
 //                                   *********** ACTIONS METHODS *************
 //----------------------------------        Movement of the Robot           ----------------------------------------------
 
-void move(char direction, float time) // ik it is redundant (it could be useful?)
+void move(char direction, float time)
 {
 	switch (direction)
 	{
@@ -65,7 +65,7 @@ void move(char direction, float time) // ik it is redundant (it could be useful?
 	  break;
 	case 'B':
 	  motor[leftMotor] = -127;
-	  motor[RightMotor] = 127;
+	  motor[rightMotor] = 127;
 	  break;
 	case 'R':
 	  motor[leftMotor] = -127;
@@ -89,44 +89,6 @@ void move(char direction, float time) // ik it is redundant (it could be useful?
 	wait1Msec(1000);
 }
 
-void goBackward()
-{
-	motor[leftMotor] = 127;
-	motor[rightMotor] = -127;
-}
-
-void goForward()
-{
-	motor[leftMotor] = -127;
-	motor[rightMotor] = 127;
-}
-
-
-void goLeft(float time)
-{
-	motor[leftMotor] = -127;
-	motor[rightMotor] = -127;
-	wait1Msec(time * 1000);
-	motor[leftMotor] = 0;
-	motor[rightMotor] = 0;
-}
-
-
-void goRight(float time) // why is this method different?
-{
-  motor[leftMotor] = 127;
-  motor[rightMotor] = 127;
-  wait1Msec(time * 1000);
-  motor[leftMotor] = 0;
-  motor[rightMotor] = 0;
-}
-
-void stopMotors()
-{
-	motor[leftMotor] = 0;
-	motor[rightMotor] = 0;
-}
-
 
 //------------------------------------      Control Lift Motors     --------------------------------
 void putUpLift()
@@ -144,12 +106,6 @@ void putDownLift()
 	motor[liftLeft] = -127;
 	motor[liftRight] = 127;
 	wait1Msec(740);
-	motor[liftLeft] = 0;
-	motor[liftRight] = 0;
-}
-
-void stopLift()
-{
 	motor[liftLeft] = 0;
 	motor[liftRight] = 0;
 }
