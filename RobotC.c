@@ -44,7 +44,7 @@ void pre_auton()
 
 
 	//I may have to do something about this preset...
-	motor[starGrabber] = -50;
+	//motor[starGrabber] = -50;
 
 
 }
@@ -183,16 +183,14 @@ long toGrab()
 task autonomous()
 {
 
-	float time = 2.8;													//change time to turn 90 degrees to match the robot's speed and weight
-
-
 	// waitUntil doesn't work even though it should: http://help.robotc.net/WebHelpVEX/Content/Resources/topics/VEX_IQ/Graphical/Program_Flow/waitUntil.htm
 	// waitUntil(SensorValue(sight) < 6);				//change the value for the sights to stop the robot to shoot over the fence
-
-
 	//*******************************************************************************************************
 	//		WE MAY NOT NEED THIS. IF WE HAVE TIME, WE COULD HARD-CODE THE NUMBERS FOR PRECISE MEASUREMENTS!
 	//*******************************************************************************************************
+
+
+
 
 	//when star is in the grabber (preload)
 	putUpLift();
@@ -262,7 +260,7 @@ task usercontrol()
 
 		//lift using Button 5
 		if (vexRT[Btn5D] == 1) {							//moving lift down
-			motor[liftLeft] = -127;
+			motor[liftLeft] = -127;							//one of these lifts has to be reversed.... change values if neccessary
 			motor[liftRight] = 127;
 		}
 		else if (vexRT[Btn5U] == 1) {					//moving lift up
@@ -277,13 +275,16 @@ task usercontrol()
 
 
 		//To grab the star using Button 6
-		if (vexRT[Btn6D] == 1) {
-			motor[starGrabber] = -70;
+		if (vexRT[Btn6D] == 1)
+		{
+			motor[starGrabber] = -70;					//may want to make this faster...
 		}
-		else if (vexRT[Btn6U] == 1) {
+		else if (vexRT[Btn6U] == 1)
+		{
 			motor[starGrabber] = 70;
 		}
-		else {
+		else
+		{
 			motor[starGrabber] = 0;
 		}
 
