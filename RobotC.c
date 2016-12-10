@@ -122,7 +122,7 @@ void putUpLift()
 {
 	motor[liftLeft] = 127;
 	motor[liftRight] = -127;
-	wait1Msec(1350);
+	wait1Msec(1350);						//change time for actual robot
 	motor[liftLeft] = 0;
 	motor[liftRight] = 0;
 }
@@ -132,7 +132,7 @@ void putDownLift()
 {
 	motor[liftLeft] = -127;
 	motor[liftRight] = 127;
-	wait1Msec(740);
+	wait1Msec(740);								//change time for actual robot
 	motor[liftLeft] = 0;
 	motor[liftRight] = 0;
 }
@@ -206,14 +206,17 @@ task autonomous()
 
 	move('F', 1);
 
-	for(int i=0; i < 5; i++) // knocks some stars off the fence
+	for(int i=0; i < 5; i++) 						// knocks some stars off the fence
 	{
-    		move('B', .5); // approximations
+    		move('B', .5); 								// approximations
     		turn('R', 45);
     		move('F', 1);
     		turn('L', 45);
 	}
 
+
+
+	//if we are under 15 seconds left
 	// pick up cube
 	move('B', .5);
 	openStarGrabber();
@@ -284,9 +287,5 @@ task usercontrol()
 			motor[starGrabber] = 0;
 		}
 
-		//idle... To give hardware time to catch up
-		wait1Msec(30);
-		motor[liftLeft] = 0;
-		motor[liftRight] = 0;
 	}
 }
