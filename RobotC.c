@@ -1,4 +1,6 @@
 #pragma config(Sensor, in1,    gyro,           sensorGyro)
+#pragma config(Sensor, in2,    leftPM,         sensorPotentiometer)
+#pragma config(Sensor, in3,    rightPM,        sensorPotentiometer)
 #pragma config(Sensor, dgtl1,  grabberTouch,   sensorTouch)
 #pragma config(Sensor, dgtl2,  sight,          sensorSONAR_cm)
 #pragma config(Motor,  port1,           leftMotor,     tmotorVex393_HBridge, openLoop)
@@ -37,15 +39,11 @@ void pre_auton()
 	// Set bDisplayCompetitionStatusOnLcd to false if you don't want the LCD
 	// used by the competition include file, for example, you might want
 	// to display your team name on the LCD in this function.
-	// bDisplayCompetitionStatusOnLcd = false;
+	bDisplayCompetitionStatusOnLcd = true;
 
 	// All activities that occur before the competition starts
 
-
-
-	//I may have to do something about this preset...
-	//motor[starGrabber] = -50;
-
+	//set the value of each potentiometer to a certain value...
 
 }
 
