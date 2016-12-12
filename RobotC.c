@@ -191,11 +191,10 @@ task autonomous()
 
 
 	//when star is in the grabber (preload)
+  	closeStarGrabber();
 	putUpLift();
-  closeStarGrabber();
 	move('F', 2);
 	openStarGrabber();
-
 	//to knock off the stars off the fence             NEEDS TO BE CALCULATED TO PRECISE ANGLES
 	//goRight();          //find the exact time required to rotate the robot
 	//also, the turn might vary on the starting position of the robot
