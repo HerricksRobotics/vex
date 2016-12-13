@@ -2,7 +2,9 @@
 #pragma config(Sensor, in2,    leftPM,         sensorPotentiometer)
 #pragma config(Sensor, in3,    rightPM,        sensorPotentiometer)
 #pragma config(Sensor, dgtl1,  grabberTouch,   sensorTouch)
-#pragma config(Sensor, dgtl2,  sight,          sensorSONAR_cm)
+#pragma config(Sensor, dgtl2,  sight,          sensorNone)
+#pragma config(Sensor, dgtl3,  jump3,          sensorDigitalIn)
+#pragma config(Sensor, dgtl4,  bumper,         sensorDigitalIn)
 #pragma config(Motor,  port1,           leftMotor,     tmotorVex393_HBridge, openLoop)
 #pragma config(Motor,  port2,           rightMotor,    tmotorVex393_MC29, openLoop, reversed)
 #pragma config(Motor,  port3,           liftLeft,      tmotorVex393HighSpeed_MC29, openLoop)
@@ -61,7 +63,7 @@ void stopMotors()
 	motor[rightMotor] = 0;
 }
 
-void move(char direction, float time)
+void move(char direction, float time, bool useBumper)
 {
 	switch (direction)
 	{
@@ -85,7 +87,21 @@ void move(char direction, float time)
 	  return;
 	}
 
-	wait1Msec(time * 1000);
+	int countRunTimeMsec = 0;
+	if (useBumper) // use bumper if 0 is passed as the time parameter
+	{
+		// just in case the sensor is never pushed
+	 	// 1 means not pushed
+		while (SensorValue[bumper] == 1 && countRunTimeMsec < time * 1000.0)
+		{
+			wait1Msec(10);
+			countRunTimeMsec += 10;
+		} // stopped because max time exceeded or bumper value is 1
+	} // not bumper
+	else
+	{
+		wait1Msec(time * 1000);
+	}
 
 	// time parameter finished so stop
 	stopMotors();
@@ -176,36 +192,32 @@ long toGrab()
 }
 
 //*******************************************************************************************************************************
+	// 															 AUTONOMOUS
+	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	//		HARD CODING FOR 15 SEC AUTONOMOUS, SENSORS FOR 60 SECOND PROGRAMMING SKILLS CHALLENGE
+	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
-task autonomous()
+// ------------------------------------------15 SECOND AUTONOMOUS------------------------------------------------
+
+void auto15()
 {
-
-	// waitUntil doesn't work even though it should: http://help.robotc.net/WebHelpVEX/Content/Resources/topics/VEX_IQ/Graphical/Program_Flow/waitUntil.htm
-	// waitUntil(SensorValue(sight) < 6);				//change the value for the sights to stop the robot to shoot over the fence
-	//*******************************************************************************************************
-	//		WE MAY NOT NEED THIS. IF WE HAVE TIME, WE COULD HARD-CODE THE NUMBERS FOR PRECISE MEASUREMENTS!
-	//*******************************************************************************************************
-
-
-
-
 	//when star is in the grabber (preload)
-  	closeStarGrabber();
+  closeStarGrabber();
 	putUpLift();
-	move('F', 2);
+	move('F', 2, false);
 	openStarGrabber();
 	//to knock off the stars off the fence             NEEDS TO BE CALCULATED TO PRECISE ANGLES
 	//goRight();          //find the exact time required to rotate the robot
 	//also, the turn might vary on the starting position of the robot
 
-	move('F', 1);
+	move('F', 1, false);
 
 	for(int i=0; i < 5; i++) 						// knocks some stars off the fence
 	{
-    		move('B', .5); 								// approximations
+    		move('B', .5, false); 								// approximations
     		turn('R', 45);
-    		move('F', 1);
+    		move('F', 1, false);
     		turn('L', 45);
 	}
 
@@ -213,15 +225,60 @@ task autonomous()
 
 	//if we are under 15 seconds left
 	// pick up cube
-	move('B', .5);
+	move('B', .5, false);
 	openStarGrabber();
 	turn('L', 180); // turn around to face cube
-	move('F', .5);
+	move('F', .5, false);
 	closeStarGrabber();
 	putUpLift();
 	turn('L', 180); // turn around to face fence
-	move('F', 2);
+	move('F', 2, true);
 	openStarGrabber();
+}
+
+// ---------------------------------------60 SECONDS AUTONOMOUS--------------------------------------------------
+
+void auto60()
+{
+	// 3 preloaded stars, 2 preloaded cubes-- go back to starting box to load objects
+
+	// will claw will have game object in it
+	closeStarGrabber();
+	putUpLift();
+	// waitUntil(SensorValue(sight) < 6);				//change the value for the sights to stop the robot to shoot over the fence
+
+	float timeToMid = 6; // make longer than actual time that it takes. This is just in case the robot never triggers the bumper!!!
+	float timeToStart = 4;
+	move('F', timeToMid, true); // move for 4 sec (or however long it takes) to the fence
+	openStarGrabber();
+
+	move('B', timeToStart, false);
+	wait1Msec(1000); // wait 1 second to load star/cube
+	closeStarGrabber();
+	move('F', timeToMid, true);
+	openStarGrabber();
+
+	// load cube, heavier than star --> needs more power to lift
+	move('B', timeToStart, false);
+	wait1Msec(1000); // wait 1 second to load star/cube
+	closeStarGrabber();
+	// lift here
+	move('F', timeToMid, true);
+	openStarGrabber();
+
+	// add more to fill 60 seconds
+}
+
+task autonomous()
+{
+	if (SensorValue[jump3] == 0) // jumper is in --> 15 second autonomous
+	{
+		auto15();
+	}
+	else // jumper is out --> 60 second autonomous
+	{
+		auto60();
+	}
 }
 
 
