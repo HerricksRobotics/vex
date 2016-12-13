@@ -26,7 +26,7 @@ task main()
 			motor[LeftBackWheel] = 0;
 		}
 
-		if (vexRT[ChY2] != 1) {
+		if (vexRT[Y2] != 1) {
 			motor[RightBackWheel] = vexRT[Ch2];
 			motor[RightFrontWheel] = -vexRT[Ch2];
 		}
