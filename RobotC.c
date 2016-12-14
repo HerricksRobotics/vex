@@ -292,8 +292,7 @@ task usercontrol()
 		//To control the left side using channel 3
 		if (vexRT[Ch3] != 0)
 		{
-			motor[leftMotor] = vexRT[Ch3] / 10;							//dividing it by 10 to maintain smooth, continuous control
-		}
+			motor[leftMotor] = vexRT[Ch3];
 		else
 		{
 			motor[leftMotor] = 0;
@@ -303,7 +302,7 @@ task usercontrol()
 		//To control the right side using channel 2
 		if (vexRT[Ch2] != 0)
 		{
-			motor[rightMotor] = vexRT[Ch2] / 10;					//dividing it by 10 to maintain smooth, continuous control
+			motor[rightMotor] = vexRT[Ch2];
 
 		}
 		else
