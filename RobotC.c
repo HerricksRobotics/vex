@@ -2,9 +2,9 @@
 #pragma config(Sensor, in2,    leftPM,         sensorPotentiometer)
 #pragma config(Sensor, in3,    rightPM,        sensorPotentiometer)
 #pragma config(Sensor, dgtl1,  grabberTouch,   sensorTouch)
-#pragma config(Sensor, dgtl2,  sight,          sensorNone)
-#pragma config(Sensor, dgtl3,  jump3,          sensorDigitalIn)
-#pragma config(Sensor, dgtl4,  bumper,         sensorDigitalIn)
+#pragma config(Sensor, dgtl2,  sight,          sensorSONAR_cm)
+#pragma config(Sensor, dgtl4,  jump3,          sensorDigitalIn)
+#pragma config(Sensor, dgtl5,  bumper,         sensorDigitalIn)
 #pragma config(Motor,  port1,           leftMotor,     tmotorVex393_HBridge, openLoop)
 #pragma config(Motor,  port2,           rightMotor,    tmotorVex393_MC29, openLoop, reversed)
 #pragma config(Motor,  port3,           liftLeft,      tmotorVex393HighSpeed_MC29, openLoop)
@@ -115,7 +115,7 @@ void turn(char direction, int degrees)
 	SensorType[in1] = sensorNone;
 	wait1Msec(50);
 	SensorType[in1] = sensorGyro;
-	wait1Msec(1000); // robotC calibrates sensor
+	wait1Msec(1000); 																// robotC calibrates sensor
 	switch (direction)
 	{
 	case 'R':
@@ -155,14 +155,14 @@ void putDownLift()
 //------------------------------------      StarGrabber         -------------------------------------
 void openStarGrabber()
 {
-	motor[starGrabber] = 0;         //CHANGE 0 TO A VALUE
+	motor[starGrabber] = 0;         				//CHANGE 0 TO A VALUE
 	wait1Msec(250);
 	motor[starGrabber] = 0;
 }
 
 void closeStarGrabber()
 {
-	motor[starGrabber] = 0;         //CHANGE 0 TO A VALUE
+	motor[starGrabber] = 0;         				//CHANGE 0 TO A VALUE
 	wait1Msec(150);
 	motor[starGrabber] = 0;
 }
