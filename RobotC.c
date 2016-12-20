@@ -169,12 +169,6 @@ void closeStarGrabber()
 
 //-----------------------------------		Sensors			-------------------------------
 
-
-//*******************************************************************************************************
-//		WE MAY NOT NEED THIS. IF WE HAVE TIME, WE COULD HARD-CODE THE NUMBERS FOR PRECISE MEASUREMENTS!
-//*******************************************************************************************************
-
-
 //to detect an object near them
 //ASK WHERE AND HOW THE SONIC-SENSOR IS PLACES
 int toSee()					//0 to 255 in cm
@@ -207,9 +201,6 @@ void auto15()
 	putUpLift();
 	move('F', 2, false);
 	openStarGrabber();
-	//to knock off the stars off the fence             NEEDS TO BE CALCULATED TO PRECISE ANGLES
-	//goRight();          //find the exact time required to rotate the robot
-	//also, the turn might vary on the starting position of the robot
 
 	move('F', 1, false);
 
@@ -247,20 +238,20 @@ void auto60()
 	putUpLift();
 	// waitUntil(SensorValue(sight) < 6);				//change the value for the sights to stop the robot to shoot over the fence
 
-	float timeToMid = 6; // make longer than actual time that it takes. This is just in case the robot never triggers the bumper!!!
+	float timeToMid = 6; 						// make longer than actual time that it takes. This is just in case the robot never triggers the bumper!!!
 	float timeToStart = 4;
-	move('F', timeToMid, true); // move for 4 sec (or however long it takes) to the fence
+	move('F', timeToMid, true); 					// move for 4 sec (or however long it takes) to the fence
 	openStarGrabber();
 
 	move('B', timeToStart, false);
-	wait1Msec(1000); // wait 1 second to load star/cube
+	wait1Msec(1000); 						// wait 1 second to load star/cube
 	closeStarGrabber();
 	move('F', timeToMid, true);
 	openStarGrabber();
 
 	// load cube, heavier than star --> needs more power to lift
 	move('B', timeToStart, false);
-	wait1Msec(1000); // wait 1 second to load star/cube
+	wait1Msec(1000); 						// wait 1 second to load star/cube
 	closeStarGrabber();
 	// lift here
 	move('F', timeToMid, true);
@@ -271,11 +262,11 @@ void auto60()
 
 task autonomous()
 {
-	if (SensorValue[jump3] == 0) // jumper is in --> 15 second autonomous
+	if (SensorValue[jump3] == 0)	// jumper is in --> 15 second autonomous
 	{
 		auto15();
 	}
-	else // jumper is out --> 60 second autonomous
+	else 				// jumper is out --> 60 second autonomous
 	{
 		auto60();
 	}
