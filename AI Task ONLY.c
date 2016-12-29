@@ -15,7 +15,7 @@
 
 void stopMotors()
 {
-	motor[leftMotor] = 0;
+// 	motor[leftMotor] = 0;
 	motor[rightMotor] = 0;
 }
 
@@ -160,7 +160,9 @@ task autonomous()
 
 	move('F', 1);
 
-	for(int i=0; i < 5; i++) 						// knocks some stars off the fence
+	for(int i=0; i < 5; i++) 						// knocks some stars off the fence 
+	/* Please clarify as to exactly how this is supposed to knock the starts off the fence, thank you. -Supreme Programmer Eric
+	*/
 	{
     		move('B', .5); 								// approximations
     		turn('R', 45);
