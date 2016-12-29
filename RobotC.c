@@ -303,33 +303,39 @@ task autonomous()
 
 task usercontrol()
 {
+
+	int leftSpeed;
+	int rightSpeed;
+
 	while (true)
 	{
 		//To control the left side using channel 3
-		if (vexRT[Ch3] != 0)
+  	if (vexRT[Ch3] > -35 && vexRT[Ch3] < 35)
 		{
-			motor[leftFrontMotor] = vexRT[Ch3];
-			motor[leftBackMotor] = vexRT[Ch3];
+			leftSpeed = 0;
 		}
 		else
 		{
-			motor[leftFrontMotor] = 0;
-			motor[leftBackMotor] = 0;
+			leftSpeed = vexRT[Ch3];
 		}
+
 
 
 		//To control the right side using channel 2
-		if (vexRT[Ch2] != 0)
+		if (vexRT[Ch2] > -35 && vexRT[Ch2] < 35)
 		{
-			motor[rightFrontMotor] = vexRT[Ch2];
-			motor[rightBackMotor] = vexRT[Ch2];
-
+			rightSpeed = 0;
 		}
 		else
 		{
-			motor[rightFrontMotor] = 0;
-			motor[rightBackMotor] = 0;
+			rightSpeed = vexRT[Ch2];
 		}
+
+		motor[leftBackWheel] = leftSpeed;
+		motor[leftFrontWheel]= leftSpeed;
+		motor[rightBackWheel] = -rightSpeed;
+		motor[rightFrontWheel] = -rightSpeed;
+
 
 		//lift using Button 5
 		if (vexRT[Btn5D] == 1) {							//moving lift down
