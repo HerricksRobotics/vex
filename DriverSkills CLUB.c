@@ -183,11 +183,6 @@ task usercontrol()
 			liftSpeed = 0;
 		}
 
-		motor[liftLeftTop] = liftSpeed;
-		motor[liftLeftBottom] = liftSpeed;
-		motor[liftRightTop] = -liftSpeed;
-		motor[liftRightBottom] = -liftSpeed;
-
 		//lift Down using Button 6U
 		if (vexRT[Btn6U] == 1)				//moving lift down
 		{
