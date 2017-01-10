@@ -61,6 +61,7 @@ void pre_auton()
 //                                   *********** ACTIONS METHODS *************
 //----------------------------------        Movement of the Robot           ----------------------------------------------
 
+
 void stopMotors()
 {
 	motor[leftFrontMotor] = 0;
@@ -68,6 +69,7 @@ void stopMotors()
 	motor[rightFrontMotor] = 0;
 	motor[rightBackMotor] = 0;
 }
+
 
 void move(char direction, float time, bool useBumper)
 {
@@ -124,6 +126,8 @@ void move(char direction, float time, bool useBumper)
 	wait1Msec(1000);
 }
 
+
+
 void turn(char direction, int degrees)
 {
 	SensorType[in1] = sensorNone;
@@ -148,6 +152,8 @@ void turn(char direction, int degrees)
 	waitUntil(SensorValue[in1] > degrees * 10);
 	stopMotors();
 }
+
+
 
 //------------------------------------      Control Lift Motors     --------------------------------
 void putUpLift()
@@ -185,7 +191,6 @@ void putDownLift()
 int toSee()					//0 to 255 in cm
 {
 	return SensorValue(sight);
-
 }
 
 //*******************************************************************************************************************************
