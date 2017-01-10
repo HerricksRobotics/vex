@@ -40,7 +40,5 @@ task main()
 		motor[rightBackWheel] = -rightSpeed;
 		motor[rightFrontWheel] = -rightSpeed;
 
-}
-
-
+	}
 }
