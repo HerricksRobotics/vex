@@ -12,11 +12,17 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 
+## 0.0.2 - 2017-1-9
+### Changed
+  - Removed motor[grabber] in the RobotC.c
+  - @richtxo
+### Future
+  - Will change the automous methods and create stoppers for each sections...
+  
 ## 0.0.2 - 2016-12-28
 ### Changed
   - Adding deadlock zones into the RobotC.c
   - @richtxo
-
 
 ## 0.0.1 - 2016-12-20
 ### Added
