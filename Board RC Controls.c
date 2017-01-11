@@ -31,8 +31,8 @@ task main()
 			rightSpeed = vexRT[Ch2];
 		}
 
-		motor[leftWheel] = leftSpeed;
-		motor[rightWheel] = -rightSpeed;
+		motor[leftWheel] = leftSpeed;							//Nagate one of the motors if needed.....
+		motor[rightWheel] = -rightSpeed;					//Aman, do it yourself... got other things to do...
 
 	}
 }

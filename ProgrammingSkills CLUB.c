@@ -151,7 +151,7 @@ task main()
 {
 	// 3 preloaded stars, 2 preloaded cubes-- go back to starting box to load objects
 	//ROBOT WILL FACE ITS BACK TOWARDS THE FENCE AS ITS STARTING POSITION!
-
+	/*
 	putUpLift();
 	// waitUntil(SensorValue(sight) < 6);				//change the value for the sights to stop the robot to shoot over the fence
 
@@ -164,19 +164,21 @@ task main()
 
 	move('B', timeToStart, false);
 	wait1Msec(1000); // wait 1 second to load star/cube
-	closeGrabber();
 	move('F', timeToMid, true);
-	openGrabber();
 
 	// load cube, heavier than star --> needs more power to lift
 	move('B', timeToStart, false);
 	wait1Msec(1000); // wait 1 second to load star/cube
-	closeGrabber();
+
 	// lift here
 	move('F', timeToMid, true);
-	openGrabber();
-
-	// add more to fill 60 seconds
+	*/
 
 
+
+
+
+
+
+	//ADD MORE FOR THIS SKILL!!!!!!
 }
