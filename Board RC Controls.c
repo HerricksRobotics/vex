@@ -4,14 +4,13 @@
 
 task main()
 {
-  int leftSpeed;
- 	int rightSpeed;
+	int leftSpeed;
+	int rightSpeed;
 
-  while (true)
-  {
-
-  	//To control the left side using channel 3
-  	if (vexRT[Ch3] > -35 && vexRT[Ch3] < 35)
+	while (true)
+	{
+		//To control the left side using channel 3
+		if (vexRT[Ch3] > -35 && vexRT[Ch3] < 35)
 		{
 			leftSpeed = 0;
 		}
@@ -31,8 +30,8 @@ task main()
 			rightSpeed = vexRT[Ch2];
 		}
 
-		motor[leftWheel] = leftSpeed;							//Nagate one of the motors if needed.....
-		motor[rightWheel] = -rightSpeed;					//Aman, do it yourself... got other things to do...
+		motor[leftWheel] = leftSpeed;
+		motor[rightWheel] = -rightSpeed;
 
 	}
 }

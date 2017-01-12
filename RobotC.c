@@ -304,7 +304,8 @@ task usercontrol()
 			leftSpeed = vexRT[Ch3];
 		}
 
-		//To control the right side using channel 2
+		//To control the right side using c
+		hannel 2
 		if (vexRT[Ch2] > -35 && vexRT[Ch2] < 35)						//Deadlock Zones
 		{
 			rightSpeed = 0;
