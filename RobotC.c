@@ -15,8 +15,10 @@
 //PORT 2 ON THE OLD VEX CORTEX (THE ONE THAT WAS OPENED FIRST) DOESN'T DELIVER POWER
 
 /*
-					IMPORTANT SHIT TO READ!!!!
+					IMPORTANT TO READ!!!!
 Caitlin wrote 99% of this class. Rich only made 1% of changes to this class.
+
+This is for the class robot... not the board!
 */
 
 /*---------------------------------------------------------------------------*/
