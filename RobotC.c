@@ -128,6 +128,30 @@ void move(char direction, float time, bool useBumper)
 	wait1Msec(1000);
 }
 
+/*----------------------Motor Pushing Stars Off Mid------------------------ [Inventor: Christopher Lo]*/
+
+void motorPush(int time) {
+	int runningTime = 0;
+	const int POWER = 30;
+	while (runningTime <= time * 1000) {
+		motor[liftLeftBottom] = POWER;
+		motor[liftLeftTop] = POWER;
+		motor[liftRightBottom] = POWER;
+		motor[liftRightTop] = POWER;
+
+		wait1Msec(100);
+		runningTime += 100;
+
+		motor[liftLeftBottom] = -1 * POWER;
+		motor[liftLeftTop] = -1 * POWER;
+		motor[liftRightBottom] = -1 * POWER;
+		motor[liftRightTop] = -1 * POWER;
+
+		wait1Msec(100);
+		runningTime += 100;
+	}
+}
+
 
 
 void turn(char direction, int degrees)
@@ -212,18 +236,14 @@ void auto15()
 	//goRight();          //find the exact time required to rotate the robot
 	//also, the turn might vary on the starting position of the robot
 
-	move('F', 1, false);
-
+	turn('R', 90);
 	for(int i=0; i < 5; i++) 						// knocks some stars off the fence
-	{
-    		move('B', .5, false); 								// approximations
-    		turn('R', 45);
+	{																		// approximations
     		move('F', 1, false);
-    		turn('L', 45);
+    		pushMotor(1);
 	}
 
-
-
+	/*
 	//if we are under 15 seconds left
 	// pick up cube
 	move('B', .5, false);
@@ -235,9 +255,10 @@ void auto15()
 	turn('L', 180); // turn around to face fence
 	move('F', 2, true);
 	openGrabber();
+	*/
 }
 
-// ---------------------------------------60 SECONDS AUTONOMOUS--------------------------------------------------
+---------------------------------------60 SECONDS AUTONOMOUS--------------------------------------------------
 
 void auto60()
 {
@@ -254,7 +275,7 @@ void auto60()
 	openGrabber();
 
 	move('B', timeToStart, false);
-	wait1Msec(1000); // wait 1 second to load star/cube
+	wait1Msec(2000); // wait 1 second to load star/cube
 	closeGrabber();
 	move('F', timeToMid, true);
 	openGrabber();
@@ -272,6 +293,9 @@ void auto60()
 
 task autonomous()
 {
+	auto15();
+
+	/*
 	if (SensorValue[jump3] == 0) // jumper is in --> 15 second autonomous
 	{
 		auto15();
@@ -280,6 +304,7 @@ task autonomous()
 	{
 		auto60();
 	}
+	*/
 }
 
 
@@ -304,8 +329,7 @@ task usercontrol()
 			leftSpeed = vexRT[Ch3];
 		}
 
-		//To control the right side using c
-		hannel 2
+		//To control the right side using channel 2
 		if (vexRT[Ch2] > -35 && vexRT[Ch2] < 35)						//Deadlock Zones
 		{
 			rightSpeed = 0;
