@@ -137,7 +137,6 @@ void putDownLift()
 
 //-----------------------------------		Sensors			-------------------------------
 
-
 //to detect an object near them
 //ASK WHERE AND HOW THE SONIC-SENSOR IS PLACES
 int toSee()					//0 to 255 in cm
@@ -149,37 +148,43 @@ int toSee()					//0 to 255 in cm
 
 task main()
 {
+
+/*
+	//********************************************************************************************
+	//		NEED TO EXPLAIN WHATS GOING ON HERE...
+	//********************************************************************************************
+
 	// 3 preloaded stars, 2 preloaded cubes-- go back to starting box to load objects
 	//ROBOT WILL FACE ITS BACK TOWARDS THE FENCE AS ITS STARTING POSITION!
-	/*
 	putUpLift();
 	// waitUntil(SensorValue(sight) < 6);				//change the value for the sights to stop the robot to shoot over the fence
 
 
-	float timeToMid = 6; // make longer than actual time that it takes. This is just in case the robot never triggers the bumper!!!
+	float TIMETOMID = 6; // make longer than actual time that it takes. This is just in case the robot never triggers the bumper!!!
 	float timeToStart = 4;
-	move('F', timeToMid, true); // move for 4 sec (or however long it takes) to the fence
+	move('B', TIMETOMID, true); // move for 4 sec (or however long it takes) to the fence
 
 
 
-	move('B', timeToStart, false);
+	move('F', timeToStart, false);
 	wait1Msec(1000); // wait 1 second to load star/cube
-	move('F', timeToMid, true);
+	move('B', timeToMid, true);
 
 	// load cube, heavier than star --> needs more power to lift
-	move('B', timeToStart, false);
+	move('F', timeToStart, false);
 	wait1Msec(1000); // wait 1 second to load star/cube
 
 	// lift here
-	move('F', timeToMid, true);
+	move('B', timeToMid, true);
 	*/
-	//ADD MORE FOR THIS SKILL!!!!!!
 
 
 
+	//Robot's back would be facing towards the middle fence...
 
-
-
+	//to put the lift arm down
+	move('B', 3, false);						//timing might be off
+	move('F', 1.5, false);
 
 
 
