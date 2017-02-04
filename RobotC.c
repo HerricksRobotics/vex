@@ -128,31 +128,6 @@ void move(char direction, float time, bool useBumper)
 	wait1Msec(1000);
 }
 
-/*----------------------Motor Pushing Stars Off Mid------------------------ [Inventor: Christopher Lo]*/
-
-void motorPush(int time) {
-	int runningTime = 0;
-	const int POWER = 30;
-	while (runningTime <= time * 1000) {
-		motor[liftLeftBottom] = POWER;
-		motor[liftLeftTop] = POWER;
-		motor[liftRightBottom] = POWER;
-		motor[liftRightTop] = POWER;
-
-		wait1Msec(100);
-		runningTime += 100;
-
-		motor[liftLeftBottom] = -1 * POWER;
-		motor[liftLeftTop] = -1 * POWER;
-		motor[liftRightBottom] = -1 * POWER;
-		motor[liftRightTop] = -1 * POWER;
-
-		wait1Msec(100);
-		runningTime += 100;
-	}
-}
-
-
 
 void turn(char direction, int degrees)
 {
@@ -225,86 +200,34 @@ int toSee()					//0 to 255 in cm
 	//		HARD CODING FOR 15 SEC AUTONOMOUS, SENSORS FOR 60 SECOND PROGRAMMING SKILLS CHALLENGE
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-// ------------------------------------------15 SECOND AUTONOMOUS------------------------------------------------
+ /*----------------------Motor Pushing Stars Off Mid------------------------ [Inventor: Christopher 'Lo]*/
+void auto(int time) {
+	int runningTime = 0;
+	const int POWER = 30;
+	while (runningTime <= time * 1000)
 
-void auto15()
 {
-	//when star is in the forklift (preload)
-	putUpLift();
-	move('F', 2, false);
-	//to knock off the stars off the fence             NEEDS TO BE CALCULATED TO PRECISE ANGLES
-	//goRight();          //find the exact time required to rotate the robot
-	//also, the turn might vary on the starting position of the robot
+		motor[liftLeftBottom] = POWER;
+		motor[liftLeftTop] = POWER;
+		motor[liftRightBottom] = POWER;
+		motor[liftRightTop] = POWER;
 
-	turn('R', 90);
-	for(int i=0; i < 5; i++) 						// knocks some stars off the fence
-	{																		// approximations
-    		move('F', 1, false);
-    		pushMotor(1);
+		wait1Msec(100);
+		runningTime += 100;
+
+		motor[liftLeftBottom] = -1 * POWER;
+		motor[liftLeftTop] = -1 * POWER;
+		motor[liftRightBottom] = -1 * POWER;
+		motor[liftRightTop] = -1 * POWER;
+
+		wait1Msec(100);
+		runningTime += 100;
 	}
-
-	/*
-	//if we are under 15 seconds left
-	// pick up cube
-	move('B', .5, false);
-	openGrabber();
-	turn('L', 180); // turn around to face cube
-	move('F', .5, false);
-	closeGrabber();
-	putUpLift();
-	turn('L', 180); // turn around to face fence
-	move('F', 2, true);
-	openGrabber();
-	*/
-}
-
----------------------------------------60 SECONDS AUTONOMOUS--------------------------------------------------
-
-void auto60()
-{
-	// 3 preloaded stars, 2 preloaded cubes-- go back to starting box to load objects
-
-	// will claw will have game object in it
-	closeGrabber();
-	putUpLift();
-	// waitUntil(SensorValue(sight) < 6);				//change the value for the sights to stop the robot to shoot over the fence
-
-	float timeToMid = 6; // make longer than actual time that it takes. This is just in case the robot never triggers the bumper!!!
-	float timeToStart = 4;
-	move('F', timeToMid, true); // move for 4 sec (or however long it takes) to the fence
-	openGrabber();
-
-	move('B', timeToStart, false);
-	wait1Msec(2000); // wait 1 second to load star/cube
-	closeGrabber();
-	move('F', timeToMid, true);
-	openGrabber();
-
-	// load cube, heavier than star --> needs more power to lift
-	move('B', timeToStart, false);
-	wait1Msec(1000); // wait 1 second to load star/cube
-	closeGrabber();
-	// lift here
-	move('F', timeToMid, true);
-	openGrabber();
-
-	// add more to fill 60 seconds
 }
 
 task autonomous()
 {
-	auto15();
-
-	/*
-	if (SensorValue[jump3] == 0) // jumper is in --> 15 second autonomous
-	{
-		auto15();
-	}
-	else // jumper is out --> 60 second autonomous
-	{
-		auto60();
-	}
-	*/
+	auto(15);		//change seconds when needed
 }
 
 
@@ -345,34 +268,30 @@ task usercontrol()
 		motor[rightFrontMotor] = -rightSpeed;
 
 
-		//lift using Button 5
-		if (vexRT[Btn5U] == 1) {					//moving lift up
-			motor[liftLeftTop] = 127;
-			motor[liftLeftTop] = 127;
-			motor[liftRightTop] = -127;
-			motor[liftRightBottom] = -127;
+		//lift using Button 5U
+		if (vexRT[Btn5U] == 1) 						//moving lift up
+		{
+			liftSpeed = 127;
 		}
 		else
 		{
-			motor[liftLeftTop] = 0;
-			motor[liftLeftBottom] = 0;
-			motor[liftRightTop] = 0;
-			motor[liftRightBottom] = 0;
+			liftSpeed = 0;
 		}
 
-		if (vexRT[Btn6U] == 1) {					//moving lift down
-			motor[liftLeftTop] = -127;
-			motor[liftLeftTop] = -127;
-			motor[liftRightTop] = 127;
-			motor[liftRightBottom] = 127;
+		//lift Down using Button 6U
+		if (vexRT[Btn6U] == 1)				//moving lift down
+		{
+			liftSpeed = -127;
 		}
 		else
 		{
-			motor[liftLeftTop] = 0;
-			motor[liftLeftBottom] = 0;
-			motor[liftRightTop] = 0;
-			motor[liftRightBottom] = 0;
+			liftSpeed = 0;
+		}
 
+		motor[liftLeftTop] = liftSpeed;
+		motor[liftLeftBottom] = liftSpeed;
+		motor[liftRightTop] = liftSpeed;
+		motor[liftRightBottom] = liftSpeed;
 	}
 }
 }

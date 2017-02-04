@@ -202,8 +202,8 @@ task usercontrol()
 
 		motor[liftLeftTop] = liftSpeed;
 		motor[liftLeftBottom] = liftSpeed;
-		motor[liftRightTop] = -liftSpeed;
-		motor[liftRightBottom] = -liftSpeed;
+		motor[liftRightTop] = liftSpeed;
+		motor[liftRightBottom] = liftSpeed;
 
 	}
 }
