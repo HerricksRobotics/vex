@@ -173,12 +173,26 @@ task main()
 	// lift here
 	move('F', timeToMid, true);
 	*/
-
-
-
-
-
-
-
 	//ADD MORE FOR THIS SKILL!!!!!!
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
