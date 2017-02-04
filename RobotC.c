@@ -239,6 +239,7 @@ task usercontrol()
 
 	int leftSpeed;
 	int rightSpeed;
+	int liftSpeed;
 
 	while (true)
 	{
@@ -293,5 +294,4 @@ task usercontrol()
 		motor[liftRightTop] = liftSpeed;
 		motor[liftRightBottom] = liftSpeed;
 	}
-}
 }
