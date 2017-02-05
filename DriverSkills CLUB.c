@@ -121,15 +121,6 @@ void pre_auton()
 	// Example: clearing encoders, setting servo positions, ...
 }
 
-/////////////////////////////////////////////////////////////////////////////////////////
-//
-//                                 Autonomous Task
-//
-// The "Driver Skills" competition has no autonomous phase. Simply leave the following
-// placeholder.
-//
-/////////////////////////////////////////////////////////////////////////////////////////
-
 task autonomous()
 {
 
@@ -146,10 +137,9 @@ task autonomous()
 
 task usercontrol()
 {
-	  int leftSpeed;
- 		int rightSpeed;
- 		int liftSpeed;
-
+	int leftSpeed;
+ 	int rightSpeed;
+	int liftSpeed;
   while (true)
   {
 
@@ -179,9 +169,8 @@ task usercontrol()
 		motor[rightBackWheel] = -rightSpeed;
 		motor[rightFrontWheel] = -rightSpeed;
 
-
-		//lift using Button 5U
-		if (vexRT[Btn5U] == 1) 						//moving lift up
+		//lift up using Button 5U or 6D
+		if (vexRT[Btn5U] == 1 || vexRT[Btn6D] == 1)				//moving lift up
 		{
 			liftSpeed = 127;
 		}
@@ -191,12 +180,14 @@ task usercontrol()
 		}
 
 		motor[liftLeftTop] = liftSpeed;
-		motor[liftLeftBottom] = -liftSpeed;
+		motor[liftLeftBottom] = liftSpeed;
 		motor[liftRightTop] = -liftSpeed;
-		motor[liftRightBottom] = liftSpeed;
+		motor[liftRightBottom] = -liftSpeed;
 
-		//lift Down using Button 6U
-		if (vexRT[Btn6U] == 1)				//moving lift down
+
+
+		//lift Down using Button 6U or 5D
+		if (vexRT[Btn6U] == 1 || vexRT[Btn5D] == 1)				//moving lift down
 		{
 			liftSpeed = -127;
 		}
@@ -206,9 +197,8 @@ task usercontrol()
 		}
 
 		motor[liftLeftTop] = liftSpeed;
-		motor[liftLeftBottom] = -liftSpeed;
+		motor[liftLeftBottom] = liftSpeed;
 		motor[liftRightTop] = -liftSpeed;
-		motor[liftRightBottom] = liftSpeed;
-
+		motor[liftRightBottom] = -liftSpeed;
 	}
 }

@@ -2,10 +2,10 @@
 #pragma config(Sensor, dgtl1,  sight,          sensorSONAR_cm)
 #pragma config(Sensor, dgtl3,  bumper,         sensorTouch)
 #pragma config(Sensor, dgtl4,  jump3,          sensorTouch)
-#pragma config(Motor,  port1,           leftFrontWheel, tmotorVex393_HBridge, openLoop)
-#pragma config(Motor,  port3,           rightFrontWheel, tmotorVex393_MC29, openLoop)
-#pragma config(Motor,  port4,           rightBackWheel, tmotorVex393_MC29, openLoop)
-#pragma config(Motor,  port5,           leftBackWheel, tmotorVex393_MC29, openLoop)
+#pragma config(Motor,  port1,           leftFrontMotor, tmotorVex393_HBridge, openLoop)
+#pragma config(Motor,  port3,           rightFrontMotor, tmotorVex393_MC29, openLoop)
+#pragma config(Motor,  port4,           rightBackMotor, tmotorVex393_MC29, openLoop)
+#pragma config(Motor,  port5,           leftBackMotor, tmotorVex393_MC29, openLoop)
 #pragma config(Motor,  port6,           liftLeftTop,   tmotorVex393_MC29, openLoop)
 #pragma config(Motor,  port7,           liftLeftBottom, tmotorVex393_MC29, openLoop)
 #pragma config(Motor,  port8,           liftRightTop,  tmotorVex393_MC29, openLoop)
@@ -264,13 +264,14 @@ task usercontrol()
 		}
 
 		motor[leftBackMotor] = leftSpeed;
-		motor[leftFrontMotor]= leftSpeed;
+		motor[leftFrontMotor]= -leftSpeed;
 		motor[rightBackMotor] = -rightSpeed;
 		motor[rightFrontMotor] = -rightSpeed;
 
 
-		//lift using Button 5U
-		if (vexRT[Btn5U] == 1) 						//moving lift up
+
+		//lift up using Button 5U or 6D
+		if (vexRT[Btn5U] == 1 || vexRT[Btn6D] == 1)				//moving lift up
 		{
 			liftSpeed = 127;
 		}
@@ -279,8 +280,15 @@ task usercontrol()
 			liftSpeed = 0;
 		}
 
-		//lift Down using Button 6U
-		if (vexRT[Btn6U] == 1)				//moving lift down
+		motor[liftLeftTop] = liftSpeed;
+		motor[liftLeftBottom] = liftSpeed;
+		motor[liftRightTop] = -liftSpeed;
+		motor[liftRightBottom] = -liftSpeed;
+
+
+
+		//lift Down using Button 6U or 5D
+		if (vexRT[Btn6U] == 1 || vexRT[Btn5D] == 1)				//moving lift down
 		{
 			liftSpeed = -127;
 		}
@@ -291,7 +299,7 @@ task usercontrol()
 
 		motor[liftLeftTop] = liftSpeed;
 		motor[liftLeftBottom] = liftSpeed;
-		motor[liftRightTop] = liftSpeed;
-		motor[liftRightBottom] = liftSpeed;
+		motor[liftRightTop] = -liftSpeed;
+		motor[liftRightBottom] = -liftSpeed;
 	}
 }

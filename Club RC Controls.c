@@ -43,25 +43,8 @@ task main()
 		motor[rightBackWheel] = -rightSpeed;
 		motor[rightFrontWheel] = -rightSpeed;
 
-		//lift Down using Button 6D
-
-		if (vexRT[Btn6U] == 1)				//moving lift down
-		{
-			liftSpeed = -127;
-		}
-		else
-		{
-			liftSpeed = 0;
-		}
-
-
-		motor[liftLeftTop] = liftSpeed;
-		motor[liftLeftBottom] = -liftSpeed;
-		motor[liftRightTop] = -liftSpeed;
-		motor[liftRightBottom] = liftSpeed;
-
-
-		if (vexRT[Btn5U] == 1)				//moving lift up
+		//lift up using Button 5U or 6D
+		if (vexRT[Btn5U] == 1 || vexRT[Btn6D] == 1)				//moving lift up
 		{
 			liftSpeed = 127;
 		}
@@ -70,9 +53,25 @@ task main()
 			liftSpeed = 0;
 		}
 
+		motor[liftLeftTop] = liftSpeed;
+		motor[liftLeftBottom] = liftSpeed;
+		motor[liftRightTop] = -liftSpeed;
+		motor[liftRightBottom] = -liftSpeed;
+
+
+
+		//lift Down using Button 6U or 5D
+		if (vexRT[Btn6U] == 1 || vexRT[Btn5D] == 1)				//moving lift down
+		{
+			liftSpeed = -127;
+		}
+		else
+		{
+			liftSpeed = 0;
+		}
 
 		motor[liftLeftTop] = liftSpeed;
-		motor[liftLeftBottom] = -liftSpeed;
+		motor[liftLeftBottom] = liftSpeed;
 		motor[liftRightTop] = -liftSpeed;
 		motor[liftRightBottom] = -liftSpeed;
 
