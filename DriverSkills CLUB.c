@@ -1,11 +1,11 @@
-#pragma config(Motor,  port1,           leftFrontWheel, tmotorVex393_HBridge, openLoop)
-#pragma config(Motor,  port3,           leftBackWheel, tmotorVex393_MC29, openLoop)
-#pragma config(Motor,  port4,           rightFrontWheel, tmotorVex393_MC29, openLoop)
-#pragma config(Motor,  port5,           rightBackWheel, tmotorVex393_MC29, openLoop)
-#pragma config(Motor,  port6,           liftLeftTop,   tmotorVex393_MC29, openLoop)
-#pragma config(Motor,  port7,           liftLeftBottom, tmotorVex393_MC29, openLoop)
-#pragma config(Motor,  port8,           liftRightTop,  tmotorVex393_MC29, openLoop)
-#pragma config(Motor,  port9,           liftRightBottom, tmotorVex393_MC29, openLoop)
+#pragma config(Motor,  port10,           leftFrontWheel, tmotorVex393_HBridge, openLoop)
+#pragma config(Motor,  port3,           rightFrontWheel, tmotorVex393_MC29, openLoop)
+#pragma config(Motor,  port4,           rightBackWheel, tmotorVex393_MC29, openLoop)
+#pragma config(Motor,  port1,           leftBackWheel, tmotorVex393_MC29, openLoop)
+#pragma config(Motor,  port5,           liftLeftTop,   tmotorVex393_MC29, openLoop)
+#pragma config(Motor,  port6,           liftLeftBottom, tmotorVex393_MC29, openLoop)
+#pragma config(Motor,  port7,           liftRightTop,  tmotorVex393_MC29, openLoop)
+#pragma config(Motor,  port8,           liftRightBottom, tmotorVex393_MC29, openLoop)
 
 #pragma platform(VEX)
 
@@ -190,6 +190,11 @@ task usercontrol()
 			liftSpeed = 0;
 		}
 
+		motor[liftLeftTop] = liftSpeed;
+		motor[liftLeftBottom] = -liftSpeed;
+		motor[liftRightTop] = -liftSpeed;
+		motor[liftRightBottom] = liftSpeed;
+
 		//lift Down using Button 6U
 		if (vexRT[Btn6U] == 1)				//moving lift down
 		{
@@ -201,8 +206,8 @@ task usercontrol()
 		}
 
 		motor[liftLeftTop] = liftSpeed;
-		motor[liftLeftBottom] = liftSpeed;
-		motor[liftRightTop] = liftSpeed;
+		motor[liftLeftBottom] = -liftSpeed;
+		motor[liftRightTop] = -liftSpeed;
 		motor[liftRightBottom] = liftSpeed;
 
 	}
