@@ -40,7 +40,7 @@ task main()
 
 
 		//lift up using Button 5U or 6D
-		if (vexRT[Btn5U] == 1 || vexRT[Btn6D] == 1)				//moving arm	 up
+		if (vexRT[Btn5U] == 1 || vexRT[Btn6D] == 1)				//moving arm up
 		{
 			armSpeed = 127;
 		}
@@ -54,5 +54,20 @@ task main()
 		motor[armRightFront] = -armSpeed;
 		motor[armRightBack] = -armSpeed;
 
+
+		//lift up using Button 5D or 6U
+		if (vexRT[Btn5D] == 1 || vexRT[Btn6U] == 1)				//moving arm down
+		{
+			armSpeed = -127;
+		}
+		else
+		{
+			armSpeed = 0;
+		}
+
+		motor[armLeftFront] = armSpeed;
+		motor[armLeftBack] = armSpeed;
+		motor[armRightFront] = -armSpeed;
+		motor[armRightBack] = -armSpeed;
 	}
 }
