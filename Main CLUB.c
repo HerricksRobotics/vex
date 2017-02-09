@@ -201,27 +201,22 @@ int toSee()					//0 to 255 in cm
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 /*----------------------Motor Pushing Stars Off Mid------------------------ [Inventor: Christopher 'Lo]*/
-void auto(int time) {
-	int runningTime = 0;
-	const int POWER = 30;
-	while (runningTime <= time * 1000)
+void smack(int num)
+{
+	for (int i = 0; i < num; i++)
 	{
-		motor[liftLeftBottom] = POWER;
-		motor[liftLeftTop] = POWER;
-		motor[liftRightBottom] = POWER;
-		motor[liftRightTop] = POWER;
-
+		putUpLift();
 		wait1Msec(100);
-		runningTime += 100;
-
-		motor[liftLeftBottom] = -1 * POWER;
-		motor[liftLeftTop] = -1 * POWER;
-		motor[liftRightBottom] = -1 * POWER;
-		motor[liftRightTop] = -1 * POWER;
-
+		putDownLift();
 		wait1Msec(100);
-		runningTime += 100;
 	}
+}
+
+void auto()
+{
+	move('B', 4, true);
+	move('F', .2, false);
+	smack(3);
 }
 
 void autoSkills()
@@ -243,7 +238,7 @@ task autonomous()
 {
 	if (SensorValue[jumper] == 0) // jump is in 12 digital
 	{
-		auto(15);		//change seconds when needed
+		auto();		//change seconds when needed
 	}
 	else
 	{
